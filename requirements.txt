@@ -1,0 +1,8 @@
+FastAPI
+pydantic
+uvicorn
+aiofiles
+databases[sqlite]
+sqlalchemy
+databases
+jinja2

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Frequencer</title>
+		<!-- <script defer src="https://cdn.jsdelivr.net/gh/naryal2580/YoktoJS@dist/yokto.min.js"></script> -->
+		<!-- <link rel="stylesheet" href="https://cdn.muicss.com/mui-latest/css/mui.min.css"> -->
+		<!-- <link rel="stylesheet" href="https://cdn.muicss.com/mui-latest/extra/mui-colors.min.css"> -->
+		<!-- <script defer src="https://cdn.muicss.com/mui-latest/js/mui.min.js"></script> -->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<header class="mui-appbar mui--z1">
+			<div class="mui-container">
+				<table>
+					<tr class="mui--appbar-height">
+						<td class="mui--text-title mui--no-user-select">Frequencer</td>
+						<!--<td class="mui--text-right">
+							<ul class="mui-list--inline mui--text-body2">
+								<!- <li><a href="#"><i class="fa fa-user" aria-hidden="true"></i> Login</a></li> ->
+							</ul>
+                                                </td>-->
+					</tr>
+				</table>
+			</div>
+		</header>
+		<div id="content-wrapper">
+			<div class="mui--appbar-height"></div>
+			<br>
+			<br>
+			<div class="mui-container-fluid">
+				<div class="mui-row">
+					<div class="mui-col-md-10">
+						<div class="mui-textfield mui-textfield--float-label">
+							<input type="text" id="question" autocomplete="off">
+							<label>Add question</label>
+						</div>
+					</div>
+					<div class="mui-col-md-2">
+						<button class="mui-btn mui-btn--raised mui-btn--primary" onclick="api_call()">Add</button>
+					</div>
+				</div>
+			</div>
+			<div class="mui-container">
+				<div class="card mui--z1">
+					<div class="mui-container-fluid" id="questions">
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer>
+			<div class="mui-container mui--text-center">
+				&lt;<span style="color: green;">/</span>&gt; with <span style="color: red">&lt;3</span> by <a target='_blank' href="https://github.com/naryal2580/">Captain Nick Lucifer*  (*pronounced Lu-cipher)</a>
+			</div>
+		</footer>
+		<script src="js/mui.min.js"></script>
+		<script src="js/yokto.min.js"></script>
+		<script src="js/main.js"></script>
+		<script>
+$$( () => {
+	$('#question').onkeydown = (e) => {
+		if (e.key === "Enter") {
+			e.preventDefault()
+			// gaar()
+		}
+	}
+	$_('get', '/questions').then( resp => {
+		resp.forEach( (data) => {
+			append_question(data.id, data.question, data.votes)
+		})
+	})
+	document.body.onclick = e => {
+		if ( e.target.tagName.toLowerCase() === 'a' && 'type' in e.target && e.target.parentElement.hasAttribute('qid') ) {
+			vote(e.target.type, e.target.parentElement.getAttribute('qid'))
+		}
+	}
+})
+		</script>
+	</body>
+</html>
